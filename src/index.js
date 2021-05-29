@@ -8,9 +8,9 @@ import { addBlog, removeBlog, editBlog } from './actions/blogs'
 import { Provider } from 'react-redux'
 const store = configureStore();
 
-store.subscribe(() => {
-  console.log(store.getState());
-})
+// store.subscribe(() => {
+//   console.log(store.getState());
+// })
 
 const blog1 = store.dispatch(addBlog({ title: 'blog title 1', description: 'blog description 1' }))
 const blog2 = store.dispatch(addBlog({ title: 'blog title 2', description: 'blog description 2', dateAdded: Date.now() }))

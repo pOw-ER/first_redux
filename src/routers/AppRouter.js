@@ -7,22 +7,23 @@ import ContactPage from '../components/ContactPage'
 import NotFoundPage from '../components/NotFoundPage'
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-
+import AddBlogPage from '../components/AddBlogPage'
 const AppRouter = () => {
-    return (
-        <BrowserRouter>
-            <div>
-                <Header></Header>
-                <Switch>
-                    <Route path="/" component={HomePage} exact/>
-                    <Route path="/blogs" component={BlogListPage} exact/>
-                    <Route path="/blogs/:id" component={BlogDetailsPage} />
-                    <Route path="/contact" component={ContactPage} />
-                    <Route component={NotFoundPage} />
-                </Switch>
-            </div>
-        </BrowserRouter>
-    )
+  return (
+    <BrowserRouter>
+      <div>
+        <Header></Header>
+        <Switch>
+          <Route path="/" component={HomePage} exact />
+          <Route path="/blogs" component={BlogListPage} exact />
+          <Route path="/blogs/:id" component={BlogDetailsPage} />
+          <Route path="/add" component={AddBlogPage} />
+          <Route path="/contact" component={ContactPage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </div>
+    </BrowserRouter>
+  )
 }
 
 export default AppRouter
