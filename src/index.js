@@ -1,41 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux'
+import AppRouter from './routers/AppRouter';
+import configureStore from './store/configureStore';
+import { addBlog, removeBlog, editBlog } from './actions/blogs'
+import { Provider } from 'react-redux'
+const store = configureStore();
 
-const counterReducer = (state = { value: 0 }, action) => {
-  switch (action.type) {
-    case 'increment':
-      return {
-        value: state.value + 1
-      }
-    case 'decrement':
-      return {
-        value: state.value - 1
-      }
-    default:
-      return state
-  }
-}
+store.subscribe(() => {
+  console.log(store.getState());
+})
 
-let store = createStore(counterReducer)
+const blog1 = store.dispatch(addBlog({ title: 'blog title 1', description: 'blog description 1' }))
+const blog2 = store.dispatch(addBlog({ title: 'blog title 2', description: 'blog description 2', dateAdded: Date.now() }))
+store.dispatch(addBlog({ title: 'blog title 3', description: 'blog description 3', dateAdded: Date.now() }))
 
-store.subscribe(() => console.log(store.getState()))
-
-// The only way to mutate the internal state is to dispatch an action.
-// The actions can be serialized, logged or stored and later replayed.
-store.dispatch({ type: 'increment' })
-// {value: 1}
-store.dispatch({ type: 'increment' })
-// {value: 2}
-store.dispatch({ type: 'decrement' })
-// {value: 1}
+store.dispatch(removeBlog({ id: blog1.blog.id }))
+store.dispatch(editBlog(blog2.blog.id, { title: 'updated blog title', description: 'updated blog description' }))
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>,
   document.getElementById('root')
 );
 
